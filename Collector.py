@@ -13,9 +13,8 @@ def fetch_image(camera_id):
             print("Failed to read image in limited time")
             break
     else:
-        cv2.imshow("camera", image)
-        cv2.imwrite("temp_images.jpg", image)
-        print("first none zero picture read at",cnt,"trials")
+        cv2.imwrite("/Users/leonard/PycharmProjects/opencv/temp_images.jpg", image)
+        print("first none zero picture read at", cnt, "trials")
     cap.release()
     return image
 # send image to database
