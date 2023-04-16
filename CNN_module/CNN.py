@@ -38,7 +38,6 @@ if __name__ == "__main__":
     # normalization
     x_train = x_train / 255.0
     x_test = x_test / 255.0
-
     model = tf.keras.Sequential([
         # 卷积层
         layers.Conv2D(32, (3, 3), activation='relu', input_shape=(224, 224, 3)),

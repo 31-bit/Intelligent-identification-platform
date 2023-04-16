@@ -3,6 +3,8 @@ from tensorflow import keras
 from loadlib import user_defined_load
 from CNN_module.CNN import create_my_model
 from sklearn.utils import shuffle
+import cv2
+from common import generate_file_name
 
 def training():
     # load data and preprocessing
@@ -32,12 +34,12 @@ def training():
         # 保存模型
         model.save(model_path)
         print("已训练并保存模型。")
-
+    return
     # 输出 保存
 
 def predict():
     # todo rerwite the loading data
-    (x_train, y_train), (X, y_test) = user_defined_load()
+    (x_train, y_train), (X, y_test), raw_img= user_defined_load()
     X = X / 255.0
 
     # 定义模型保存路径
@@ -47,8 +49,21 @@ def predict():
         print("已加载训练好的模型。")
     else:
         print("未在路径内找到模型，请训练模型或更改模型目录")
-    predictions = model.predict(X)
-    return predictions
+    y_pred = model.predict(X)
+    y_pred = (y_pred > 0.5).astype(int)
+
+    # 找到预测错误的数据
+    for i, val in enumerate(y_pred):
+        if val == 1:
+            img_name = generate_file_name("/Users/leonard/PycharmProjects/opencv/data_predict/car")
+            cv2.imwrite(img_name, raw_img[i])
+        elif val == 0:
+            img_name = generate_file_name("/Users/leonard/PycharmProjects/opencv/data_predict/non_car")
+            cv2.imwrite(img_name, raw_img[i])
+
+    return y_pred
 
 if __name__ == "__main__":
+    # training()
     print(predict())
+
