@@ -9,7 +9,7 @@ from common import generate_file_name
 def training():
     # load data and preprocessing
     user_defined_load()
-    (x_train, y_train), (x_test, y_test) = user_defined_load()  # change path and Max picture, go into the user_defined_load
+    (x_train, y_train), (x_test, y_test) ,_= user_defined_load()  # change path and Max picture, go into the user_defined_load
     # shuffle the non-car data and car data
     x_train, y_train = shuffle(x_train, y_train)
     x_test, y_test = shuffle(x_test, y_test)
@@ -64,6 +64,6 @@ def predict():
     return y_pred
 
 if __name__ == "__main__":
-    # training()
-    print(predict())
+    training()
+    # print(predict())
 
